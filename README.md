@@ -1,31 +1,37 @@
 <h1 align="center">
   <br>
-  <a href="https://packjc.github.io/gebsplants/"><img src="docs/assets/banner.png" alt="Geb's Plants" width="900"></a>
+  <img src=".github/logo.png" alt="Geb's Plants" width="500"/>
   <br>
-  <a href="https://discord.gg/G8uSGZ8yyf"><img src="https://img.shields.io/badge/Join-Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join the Discord"></a>
-  <a href="https://steamcommunity.com/workshop/browse/?appid=221100&searchtext=Geb%27s+Plants"><img src="https://img.shields.io/badge/Steam-Workshop-1b2838?style=for-the-badge&logo=steam&logoColor=white" alt="Geb's Plants on the Steam Workshop"></a>
+  <a href="https://discord.gg/G8uSGZ8yyf" style="width:250"><img src="https://i.imgur.com/4IyA522.png" alt="Join Our Discord" width="250" style="margin-left:9%"/></a><img src="https://i.imgur.com/3rhti8A.gif" alt="Like & Favorite" width="500" style="margin-left:-10%"/>
   <br>
 </h1>
 
 <h3 align="center">Garden Crops and Wild Plants for DayZ</h3>
 
 <p align="center">
-  <a href="https://packjc.github.io/gebsplants/"><img alt="Website" src="https://img.shields.io/badge/Website-Garden%20Guide-7ed99a?style=for-the-badge"></a>
+  <img alt="Mod Version" src="https://img.shields.io/badge/Mod-v1.0.0-blue?style=for-the-badge">
+  <img alt="DayZ Version" src="https://img.shields.io/badge/DayZ-v1.30-teal?style=for-the-badge">
+  <a href="https://packjc.github.io/gebsplants/"><img alt="Website" src="https://img.shields.io/badge/Website-Garden%20Guide-1f8a4c?style=for-the-badge"></a>
 </p>
 
 <p align="center">
   <a href="https://packjc.github.io/gebsplants/">Website</a> •
-  <a href="#information">Information</a> •
   <a href="#key-features">Key Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#main-classnames">Classnames</a> •
-  <a href="#support">Support</a> •
-  <a href="#license--terms">License & Terms</a>
+  <a href="#credits">Credits</a> •
+  <a href="#license">License & Terms</a> •
+  <a href='CHANGELOG.md'>Change Log</a>
 </p>
 
 ## Information
 
-Geb's Plants adds 27 garden crops and wild ginseng to DayZ. Every crop grows from its own seed packet through five stages in a garden plot, and the harvest can be eaten raw, baked, boiled or dried.
+Geb's Plants adds 27 garden crops and wild ginseng to DayZ.
+Every crop grows from its own seed packet through five stages in a garden plot, and the harvest can be eaten raw, baked, boiled or dried.
+
+## Requirements
+
+* DayZ 1.30. No other mods are needed: load Geb's Plants on both the server and every client.
 
 ## Key Features
 
@@ -34,7 +40,21 @@ Geb's Plants adds 27 garden crops and wild ginseng to DayZ. Every crop grows fro
 * **Tobacco**: tie leaves into hands, cure them in the smoke of a stone oven, a closed barrel stove or an indoor fireplace, and bale them with rope.
 * **Wild plants**: wild American ginseng ("sang") grows on the forest floor near players, like vanilla's mushrooms, in shady hardwood coves. Chew the root, boil it into a tea or dry it to keep, or grow it from seed in a garden plot.
 * **Server-controlled by design**: seed packets are ordinary loot and wild plants join the vanilla forest-floor events. Add only what you want.
-* **Localization**: a DayZ `stringtable.csv` for the supported interface languages.
+* Supported languages:
+  - English
+  - Czech
+  - German
+  - Russian
+  - Polish
+  - Hungarian
+  - Italian
+  - Spanish
+  - French
+  - Chinese (Traditional and Simplified)
+  - Japanese
+  - Portuguese
+  > **Note**
+  > Although supported languages are listed above, we cannot verify complete accuracy. If you are a native speaker and notice anything wrong, please reach out to us in the Discord via a ticket to assist us in getting proper translations.
 
 ## Installation
 
@@ -68,14 +88,36 @@ This mod is one of three that used to be **Geb's Flora & Fauna**. Each now stand
 
 The classnames are unchanged. A server that ran Geb's Flora & Fauna should load all three to keep every item players already have; leaving one out deletes its items from the server's storage at the next restart.
 
+## Credits
+
+- Geb, creator and author
+- The DayZ community for reporting bugs and inspiration throughout the life of the mod
+
+
 ## Support
 
-* [Discord](https://discord.gg/G8uSGZ8yyf)
-* [GitHub issues](https://github.com/PackJC/gebsplants/issues)
-* [Steam Workshop](https://steamcommunity.com/workshop/browse/?appid=221100&searchtext=Geb%27s+Plants)
+If you like this project and think it has improved your server in any way, consider contributing! We are always looking for help with ideas, new models, and any monetary support that can help improve the mod. Open a ticket in the [Discord](https://discord.gg/G8uSGZ8yyf) to discuss how you can contribute, or report a bug on [GitHub](https://github.com/PackJC/gebsplants/issues).
 
-## License & Terms
 
-The Steam Workshop item is the authorized distribution source. Do not re-upload, repack, mirror, or include the mod in a server/mod pack. Use a Steam Collection to publish a server's required mod list. Refer to the Workshop page for the complete current terms.
+## License
 
-Copyright 2022–2026 Cole / PackJC.
+[Attribution-NonCommercial-NoDerivatives 4.0 International](https://github.com/PackJC/gebsplants/blob/master/LICENSE)
+
+## Usage & Terms
+This item is NOT authorized (strictly forbidden) for any of these conditions:
+- posting on Steam, except under the Steam account Cole.
+- hosting on any download server other than Geb's Plants current workshop download.
+- hosting on any launcher for distribution other than Geb's Plants current workshop download.
+- to be packaged in any form other than Geb's Plants current workshop download.
+- to create derivative works.
+
+## PERMISSION IS NOT GRANTED FOR THIS MOD TO BE INCLUDED IN A "SERVER PACK" or "MOD PACK" DO NOT EVEN ASK TO REPACK. NO. NOT ALLOWED.
+Use a Collection if you want to include this mod on your server for your users.
+
+## Monetization
+You are hereby given monetization approval under the conditions that you follow the DayZ Server Monetization agreement and have obtained permission from Bohemia. Read more here https://www.bohemia.net/monetization
+
+## Donations
+We accept donations at https://www.paypal.com/paypalme/packjc every dollar counts and we greatly appreciate any contributions!
+
+### Copyright © Smoky Mountain Software 2022-2026
