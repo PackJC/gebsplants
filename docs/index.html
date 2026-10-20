@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <title>Geb's Plants</title>
+  <meta name="description" content="Geb's Plants for DayZ: 27 garden crops grown from seed packets, wild ginseng on the forest floor, and a complete server setup guide.">
+  <meta property="og:title" content="Geb's Plants for DayZ">
+  <meta property="og:description" content="Twenty-seven garden crops and wild ginseng for DayZ servers: plant, grow, harvest, cook and cure.">
+  <meta property="og:url" content="https://packjc.github.io/gebsplants/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/PackJC/gebsplants/master/docs/assets/banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="top">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Geb's Plants, back to top">
+        <span class="glyph" aria-hidden="true"></span>
+        <span>Geb's Plants</span>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Sections">
+        <a href="#garden">Garden</a>
+        <a href="#wild">Wild plants</a>
+        <a href="#setup">Server setup</a>
+        <a href="#classnames">Classnames</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <!-- Workshop: point these links at the item's page once Geb's Plants is published -->
+      <a class="pill small" href="https://steamcommunity.com/workshop/browse/?appid=221100&amp;searchtext=Geb%27s+Plants">Subscribe</a>
+      <button class="menu" id="menu" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <p class="eyebrow rise">A DayZ mod by Geb</p>
+      <h1 class="rise">Plants.</h1>
+      <p class="lede rise">Grow your own in DayZ. Raise <b data-stat="crops">27</b> garden crops from seed packets, dig wild ginseng on the forest floor, and cook, dry or cure what you harvest.</p>
+      <div class="cta rise">
+        <a class="pill" href="https://steamcommunity.com/workshop/browse/?appid=221100&amp;searchtext=Geb%27s+Plants">Find it on Steam</a>
+        <a class="link-arrow" href="#setup">Set up your server</a>
+      </div>
+      <div class="lineup rise" aria-hidden="true">
+        <img src="assets/img/hero/carrot.webp" alt="" class="l1">
+        <img src="assets/img/hero/watermelon.webp" alt="" class="l2">
+        <img src="assets/img/hero/watermelon_slice.webp" alt="" class="l3">
+        <img src="assets/img/hero/corn.webp" alt="" class="l4">
+        <img src="assets/img/hero/yellowsquash.webp" alt="" class="l5">
+        <img src="assets/img/hero/garlic.webp" alt="" class="l6">
+        <img src="assets/img/hero/sunflower.webp" alt="" class="l7">
+      </div>
+    </section>
+
+    <section class="stats" aria-label="At a glance">
+      <div class="stat reveal"><b data-stat="crops">27</b><span>garden crops</span></div>
+      <div class="stat reveal"><b data-stat="packets">27</b><span>seed packets</span></div>
+      <div class="stat reveal"><b data-stat="flora">1</b><span>wild plant</span></div>
+      <div class="stat reveal"><b data-stat="classes">112</b><span>classnames</span></div>
+    </section>
+
+    <section class="band" id="garden">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="eyebrow">Gardening</p>
+          <h2>Grow your own.</h2>
+          <p class="sub"><span data-stat-words="crops">Twenty-seven</span> crops, each from its own seed packet, through five growth stages in a garden plot. Eat the harvest raw, bake it, boil it, or dry it for later.</p>
+        </header>
+        <ol class="how reveal">
+          <li><img src="assets/img/crops/carrot_pack.webp" alt="A carrot seed packet" loading="lazy" width="600" height="600"><b>Open a packet.</b><span>Each crop comes in a Geb's Garden seed packet, found as loot.</span></li>
+          <li><img src="assets/img/plants/carrot.webp" alt="A ripe carrot plant" loading="lazy" width="800" height="800"><b>Plant and water.</b><span>Sow in a tilled garden plot, just like vanilla seeds.</span></li>
+          <li><img src="assets/img/crops/carrot.webp" alt="A harvested carrot" loading="lazy" width="800" height="800"><b>Harvest.</b><span>Pick it when ripe, before it dries out or spoils.</span></li>
+        </ol>
+        <div class="grid crops" id="crop-grid"></div>
+      </div>
+    </section>
+
+    <section class="band dark" id="wild">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="eyebrow">Wild plants</p>
+          <h2>Forage the woods.</h2>
+          <p class="sub">Wild plants grow on the forest floor near players, like vanilla's mushrooms. Dig them whole, eat or brew them, and keep the seeds for your garden.</p>
+        </header>
+        <div class="grid cards" id="flora-grid"></div>
+      </div>
+    </section>
+
+    <section class="band soft" id="setup">
+      <div class="wrap narrow">
+        <header class="head reveal">
+          <p class="eyebrow">For server owners</p>
+          <h2>Set up in minutes.</h2>
+          <p class="sub">Nothing replaces vanilla. Seed packets are ordinary loot and wild plants join the vanilla forest-floor events, so you add only what you want.</p>
+        </header>
+        <ol class="steps">
+          <li class="reveal">
+            <span class="num">1</span>
+            <div>
+              <h3>Install the mod</h3>
+              <p>Subscribe on the Workshop, place <code>@gebsplants</code> beside the server executable, copy its key into <code>keys/</code>, and load <code>-mod=@gebsplants</code> on the server. Every player needs the mod too.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="num">2</span>
+            <div>
+              <h3>Stock the seed packets</h3>
+              <p>Seed packets are loot, like vanilla's <code>TomatoSeedsPack</code>. Copy its <code>types.xml</code> entry once for each packet below and change the name.</p>
+              <div class="code"><button class="copy" data-copy="crops-code">Copy</button><pre><code id="crops-code"></code></pre></div>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="num">3</span>
+            <div>
+              <h3>Let wild plants grow</h3>
+              <p>Give each wild plant a <code>types.xml</code> entry like vanilla's <code>AgaricusMushroom</code>, then add it to the vanilla <code>Trajectory</code> event that scatters forage on the forest floor around players.</p>
+              <div class="code"><button class="copy" data-copy="flora-types">Copy</button><pre><code id="flora-types">&lt;type name="geb_Ginseng"&gt;
+    &lt;nominal&gt;0&lt;/nominal&gt;
+    &lt;lifetime&gt;900&lt;/lifetime&gt;
+    &lt;restock&gt;0&lt;/restock&gt;
+    &lt;min&gt;0&lt;/min&gt;
+    &lt;quantmin&gt;-1&lt;/quantmin&gt;
+    &lt;quantmax&gt;-1&lt;/quantmax&gt;
+    &lt;cost&gt;100&lt;/cost&gt;
+    &lt;flags count_in_cargo="0" count_in_hoarder="0" count_in_map="1" count_in_player="0" crafted="1" deloot="0"/&gt;
+    &lt;category name="food"/&gt;
+&lt;/type&gt;</code></pre></div>
+              <div class="code"><button class="copy" data-copy="flora-events">Copy</button><pre><code id="flora-events"></code></pre></div>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="num">4</span>
+            <div>
+              <h3>Test it</h3>
+              <p>Stop the server before editing and keep backups. Validate the XML, restart, and read the RPT and script logs. Values that suit Chernarus may not suit Sakhal, Livonia or a custom map.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band" id="classnames">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="eyebrow">Reference</p>
+          <h2>Every classname.</h2>
+          <p class="sub">All <b data-stat="classes">112</b> public classes, for spawning, trader lists and loot tables. Click a name to copy it.</p>
+        </header>
+        <div class="tools reveal">
+          <label class="search"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg><input id="class-search" type="search" placeholder="Search classnames" autocomplete="off" aria-label="Search classnames"></label>
+          <label class="select"><span class="sr">Category</span><select id="class-filter"><option value="">All categories</option></select></label>
+          <span class="count" id="class-count"></span>
+        </div>
+        <div class="table reveal"><table><thead><tr><th>Classname</th><th>Name</th><th>Category</th></tr></thead><tbody id="class-body"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="band soft" id="faq">
+      <div class="wrap narrow">
+        <header class="head reveal"><p class="eyebrow">Help</p><h2>Questions.</h2></header>
+        <div class="faq reveal">
+          <details><summary>How do the garden crops grow?</summary><p>Empty a Geb's Garden seed packet, plant the seeds in a tilled garden plot and water them, as with vanilla seeds. Each crop grows through five stages; harvest it when ripe, before it dries or spoils. Cut fresh seeds out of a raw harvest with any blade: thresh barley and sorghum, shell peas and peanuts, cut sweet potatoes into seed pieces, take ginseng seeds from the berries, and split garlic into cloves. Carrots, cabbage, collards, beets, radishes, turnips, leeks and hops come from packets only. A whole watermelon or cantaloupe is too big to eat: prepare it with a blade for slices and seeds, as with vanilla's pumpkin.</p></details>
+          <details><summary>Where do I find ginseng?</summary><p>On the forest floor in hardwood woods, where the server adds it to the vanilla <code>TrajectoryDeciduous</code> event. You find the whole dug plant: look for three prongs of five toothed leaflets and a cluster of red berries over a forked, ringed tan root. Chew the root for a bitter-sweet lift, boil it into a tea, or dry it to keep and trade. You can also grow it: sow seeds from a Geb's Garden packet, or take them from the red berries with a blade, and dig the plants once they carry ripe berries.</p></details>
+          <details><summary>How do I cure tobacco?</summary><p>Tie two bunches of green leaves into a hand. Hang the hand in a smoking slot of a stone oven, a closed barrel stove or an indoor fireplace, and take it out when it turns golden brown, after about eight minutes of smoke; left in, it scorches. A hand left hanging anywhere else may cure by itself or rot. Start a bale from a cured hand and a rope, then add cured hands until it holds five.</p></details>
+          <details><summary>Where did the animals and mushrooms go?</summary><p>Geb's Plants used to be part of Geb's Flora &amp; Fauna. It is now three mods, so servers can pick what they want: <a href="https://packjc.github.io/gebsanimals/">Geb's Animals</a> has the wildlife, and <a href="https://packjc.github.io/gebsmushrooms/">Geb's Mushrooms</a> has the 63 fungi. The classnames haven't changed. If your server used the old mod, load all three to keep everything players already have.</p></details>
+          <details><summary>Does every player need the mod?</summary><p>Yes. It supplies the models, textures, scripts and item names.</p></details>
+          <details><summary>Can I put it in a server pack?</summary><p>No. Use the Workshop item, and a Steam Collection for your server's required mods.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-top">
+        <span class="brand"><span class="glyph" aria-hidden="true"></span><span>Geb's Plants</span></span>
+        <nav aria-label="Elsewhere"><a href="https://steamcommunity.com/workshop/browse/?appid=221100&amp;searchtext=Geb%27s+Plants">Steam Workshop</a><a href="https://github.com/PackJC/gebsplants">GitHub</a><a href="https://discord.gg/G8uSGZ8yyf">Discord</a></nav>
+      </div>
+      <nav class="family" aria-label="More mods by Geb"><span>More by Geb:</span><a href="https://packjc.github.io/gebsanimals/">Geb's Animals</a><a href="https://packjc.github.io/gebsplants/" aria-current="page">Geb's Plants</a><a href="https://packjc.github.io/gebsmushrooms/">Geb's Mushrooms</a><a href="https://packjc.github.io/gebsfish/">Gebsfish</a></nav>
+      <p>A DayZ community mod by Geb / Cole. DayZ and Bohemia Interactive are trademarks of Bohemia Interactive. This project is not affiliated with or endorsed by Bohemia Interactive.</p>
+    </div>
+  </footer>
+
+  <dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+    <button class="close" id="sheet-close" aria-label="Close">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15"/></svg>
+    </button>
+    <div class="sheet-body" id="sheet-body"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
+</body>
+</html>
