@@ -142,25 +142,31 @@
   }
 
   // ---- mushrooms
-  const LEVELS = { "Edible": "edible", "Cook first": "cook", "Poisonous": "poison", "Deadly": "deadly" };
+  const LEVELS = { "Edible": "edible", "Cook first": "cook", "Boil only": "cook", "Poisonous": "poison", "Deadly": "deadly",
+    "Psychedelic": "trip" };
   const levelBadge = f => h("span", { class: "badge lv-" + LEVELS[f.level], text: f.level });
   if ($("#fungi-grid") && D.fungi) {
     const poisonText = {
       "Edible": "Safe to eat raw, and better cooked.",
       "Cook first": "Edible once cooked; raw, it upsets the stomach.",
+      "Boil only": "Only as a tea: boiled, it's safe; raw, baked or dried, it upsets the stomach.",
       "Poisonous": "Causes food poisoning: vomiting and stomach pain. Charcoal tablets help.",
-      "Deadly": "Causes organ damage that cooking does not prevent, and can kill. Only chelation tablets stop it."
+      "Deadly": "Causes organ damage that can kill. Only chelation tablets stop it.",
+      "Psychedelic": "Not food: it starts a trip. Colours drift, the view breathes and doubles, and fits of laughter come and go."
     };
+    const effect = f => f.minutes ? poisonText[f.level] + " One whole mushroom lasts about " + f.minutes +
+      " minutes; more make it stronger, then longer." : poisonText[f.level];
+    const kicker = f => f.edible ? "Edible fungus" : f.level === "Psychedelic" ? "Psychedelic fungus" : "Poisonous fungus";
     const fungusSheet = f => openSheet([
       h("div", { class: "gallery" }, img(f.img, f.name, { loading: "eager" })),
       h("div", { class: "text" },
-        h("p", { class: "kicker lv-" + LEVELS[f.level], text: f.edible ? "Edible fungus" : "Poisonous fungus" }),
+        h("p", { class: "kicker lv-" + LEVELS[f.level], text: kicker(f) }),
         h("h2", { id: "sheet-title", text: f.name }),
         h("p", { class: "latin", text: f.latin }),
         levelBadge(f),
         h("p", { class: "desc", text: f.desc }),
         h("dl", {},
-          h("dt", { text: "Effect" }), h("dd", { text: poisonText[f.level] }),
+          h("dt", { text: "Effect" }), h("dd", { text: effect(f) }),
           h("dt", { text: "Habitat" }), h("dd", { text: f.habitat }),
           h("dt", { text: "Classname" }), h("dd", {}, clsButton(f.cls))))
     ]);
@@ -187,7 +193,9 @@
     const cropSheet = c => {
       const thumbs = [[c.pack_img, "Seed packet"], [c.plant_img, "Ripe plant"], [c.img, c.name]];
       if (c.slice) thumbs.push([c.slice.img, c.slice.name]);
-      const classes = [[c.cls, c.name], c.slice ? [c.slice.cls, c.slice.name] : null, [c.seeds_cls, "Seeds"], [c.pack_cls, "Seed packet"],
+      (c.extras || []).forEach(e => thumbs.push([e.img, e.name]));
+      const classes = [[c.cls, c.name], c.slice ? [c.slice.cls, c.slice.name] : null, ...(c.extras || []).map(e => [e.cls, e.name]),
+        [c.seeds_cls, "Seeds"], [c.pack_cls, "Seed packet"],
         [c.plant_cls, "Plant"]].filter(Boolean);
       openSheet([
         h("div", { class: "gallery" }, img(c.plant_img, c.name + " plant", { loading: "eager" }),
@@ -197,6 +205,7 @@
           h("h2", { id: "sheet-title", text: c.name }),
           h("p", { class: "desc", text: c.desc }),
           c.slice ? h("p", { class: "desc", text: "Prepare it with a blade for " + c.slice.count + " slices and its seeds. " + c.slice.desc }) : null,
+          ...(c.extras || []).map(e => h("p", { class: "desc", text: e.how + ". " + e.desc })),
           h("p", { class: "desc", style: "color:var(--muted)", text: c.plant }),
           h("dl", {},
             h("dt", { text: "Ripens in" }), h("dd", { text: "About " + c.minutes + " minutes" }),
@@ -206,7 +215,7 @@
       ]);
     };
     stagger($("#crop-grid"), D.crops.map(c => h("button", { class: "card crop", type: "button", onclick: () => cropSheet(c), "aria-label": c.name + ", details" },
-      h("div", { class: "pic" }, img(c.img, ""), c.slice ? img(c.slice.img, "", { class: "extra" }) : null),
+      h("div", { class: "pic" }, img(c.img, ""), (c.slice || (c.extras || [])[0]) ? img((c.slice || c.extras[0]).img, "", { class: "extra" }) : null),
       h("div", { class: "info" },
         h("h3", { text: c.name }),
         h("p", { class: "meta", text: c.tagline }),

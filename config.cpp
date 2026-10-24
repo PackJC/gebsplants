@@ -23,30 +23,48 @@ class CfgMods
 		logoSmall="gebsplants\data\logo.paa";			// icon next to mod name when description is not expanded
 		logo="gebsplants\data\logo.paa";				// logo below game menu
 		logoOver="gebsplants\data\logo_hover.paa";	// logo hovered (CfgMods reads logoOver, as mod.cpp does)
-		overview="Geb's Plants: 27 garden crops and wild ginseng for DayZ";	// keep in step with mod.cpp's overview
+		overview="Geb's Plants: 30 garden crops including wild ginseng for DayZ";	// keep in step with mod.cpp's overview
 		action="";
 		name="Geb's Plants";
 		// Without this the engine looks for gebsplants/Anims/cfg/skeletons.anim.xml
 		// and logs "ANIMATION (E): Can't load ..." on every start; point it at vanilla's.
 		skeletonDefinitions="DZ/anims/cfg/skeletons.anim.xml";
-		credits="DayZ Modding Community";
+		credits="Geb";
 		author="Geb";
 		authorID="0";
-		version="1.0.0";
+		version="2.0.0";
 		extra=0;
 		type="mod";
 		dependencies[]=
 		{
-			"World"
+			"Game",
+			"World",
+			"Mission"
 		};
 		class defs
 		{
+			class gameScriptModule
+			{
+				value="";
+				files[]=
+				{
+					"gebsplants/scripts/3_game"
+				};
+			};
 			class worldScriptModule
 			{
 				value="";
 				files[]=
 				{
-					"gebsplants/scripts"
+					"gebsplants/scripts/4_world"
+				};
+			};
+			class missionScriptModule
+			{
+				value="";
+				files[]=
+				{
+					"gebsplants/scripts/5_mission"
 				};
 			};
 		};

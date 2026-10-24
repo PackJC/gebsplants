@@ -1,14 +1,14 @@
 name = "Geb's Plants";
 dir = "gebsplants";
-overview = "Geb's Plants: 27 garden crops and wild ginseng for DayZ";
+overview = "Geb's Plants: 30 garden crops including wild ginseng for DayZ";
 credits = "Geb";
 author = "Geb";
 authorID = "0";
-version = "1.0.0";
+version = "2.0.0";
 picture = "gebsplants/data/logo.paa";				// picture in expanded description
 logoSmall = "gebsplants/data/logo.paa";				// icon next to mod name when description is not expanded
 logo = "gebsplants/data/logo.paa";					// logo below game menu
 logoOver = "gebsplants/data/logo_hover.paa";			// on mouse hover over logo
 tooltip = "Geb's Plants";						// tool tip on mouse hover
 skeletonDefinitions = "DZ/anims/cfg/skeletons.anim.xml";	// stops the "Can't load gebsplants/Anims/cfg/skeletons.anim.xml" RPT error
-action = "https://discord.gg/9dhXCbDJq4";			// link
+action = "https://discord.gg/G8uSGZ8yyf";			// link

@@ -13,4 +13,22 @@ class geb_Ginseng : Edible_Base
 		AddAction(ActionForceFeed);
 		AddAction(ActionEatFruit);
 	}
+
+	// Found on the forest floor as vanilla's mushrooms are: a Central Economy spawn is rotten 3 times in 10
+	// and dried 4 times in 10. Garden harvests are not CE spawns and stay fresh.
+	override void EEOnCECreate()
+	{
+		super.EEOnCECreate();
+		int roll = Math.RandomInt(0, 10);
+		if (roll > 6)
+		{
+			ChangeFoodStage(FoodStageType.ROTTEN);
+			SetHealth("", "", GetMaxHealth() * 0.1);
+		}
+		else if (roll > 2)
+		{
+			ChangeFoodStage(FoodStageType.DRIED);
+			SetHealth("", "", GetMaxHealth() * 0.4);
+		}
+	}
 };

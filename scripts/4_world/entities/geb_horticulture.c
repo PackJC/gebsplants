@@ -305,6 +305,17 @@ class geb_TobaccoLeaves : Edible_Base
 	override bool CanBeCooked() { return false; }
 	override bool IsFruit() { return true; }
 	override bool CanDecay() { return true; }
+
+	override bool CanBeCombined(EntityAI other_item, bool reservation_check = true, bool stack_max_limit = false)
+	{
+		return super.CanBeCombined(other_item, reservation_check, stack_max_limit) && geb_TobaccoStacking.CanMix(this, Edible_Base.Cast(other_item));
+	}
+
+	override void OnCombine(ItemBase other_item)
+	{
+		super.OnCombine(other_item);
+		geb_TobaccoStacking.KeepFoodProperties(this, Edible_Base.Cast(other_item));
+	}
 };
 // The hand cures in a smoking slot (Cooking.SmokeItem ignores CanBeCooked) or, as raw fruit and veg
 // sometimes do as they decay, by itself; cured (Dried) fruit and veg never decay.
@@ -314,6 +325,17 @@ class geb_TobaccoHand : Edible_Base
 	override bool CanBeCooked() { return false; }
 	override bool IsFruit() { return true; }
 	override bool CanDecay() { return true; }
+
+	override bool CanBeCombined(EntityAI other_item, bool reservation_check = true, bool stack_max_limit = false)
+	{
+		return super.CanBeCombined(other_item, reservation_check, stack_max_limit) && geb_TobaccoStacking.CanMix(this, Edible_Base.Cast(other_item));
+	}
+
+	override void OnCombine(ItemBase other_item)
+	{
+		super.OnCombine(other_item);
+		geb_TobaccoStacking.KeepFoodProperties(this, Edible_Base.Cast(other_item));
+	}
 };
 
 class geb_CabbageSeeds : SeedBase {};
@@ -376,6 +398,13 @@ class geb_Plant_SweetPotato : PlantBase
 	}
 };
 class geb_SweetPotato : Edible_Base
+{
+	override bool CanBeCookedOnStick() { return false; }
+	override bool CanBeCooked() { return false; }
+	override bool IsFruit() { return true; }
+	override bool CanDecay() { return true; }
+};
+class geb_SweetPotatoPeeled : Edible_Base
 {
 	override bool CanBeCookedOnStick() { return true; }
 	override bool CanBeCooked() { return true; }
@@ -676,29 +705,114 @@ class geb_Plant_Ginseng : PlantBase
 	}
 };
 
-// Hand poses for the bigger produce, borrowed from vanilla's Zucchini, Pumpkin and SlicedPumpkin.
+class geb_PoppySeeds : SeedBase {};
+class geb_PoppySeedsPack : SeedPackBase {};
+class geb_Plant_Poppy : PlantBase
+{
+	void geb_Plant_Poppy()
+	{
+		m_FullMaturityTime = 2250;
+	}
+};
+
+class geb_CocaSeeds : SeedBase {};
+class geb_CocaSeedsPack : SeedPackBase {};
+class geb_Plant_Coca : PlantBase
+{
+	void geb_Plant_Coca()
+	{
+		m_FullMaturityTime = 2250;
+	}
+};
+
+class geb_CannabisSeeds : SeedBase {};
+class geb_CannabisSeedsPack : SeedPackBase {};
+class geb_Plant_Cannabis : PlantBase
+{
+	void geb_Plant_Cannabis()
+	{
+		m_FullMaturityTime = 2850;
+	}
+};
+
+// Hand poses borrowed from vanilla's (DayZPlayerCfgBase.c): the produce like the closest vanilla fruit or
+// veg (Zucchini, Tomato, GreenBellPepper, berries, Pumpkin, SlicedPumpkin), the seed packets like its
+// seed packs, the tobacco bale like its Firewood bundle. Seeds inherit vanilla's SeedBase pose.
 modded class ModItemRegisterCallbacks
 {
 	override void RegisterOneHanded(DayZPlayerType pType, DayzPlayerItemBehaviorCfg pBehavior)
 	{
 		super.RegisterOneHanded(pType, pBehavior);
+		pType.AddItemInHandsProfileIK("geb_Corn", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_Okra", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_GreenBeans", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_Onion", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/apple.anm");
+		pType.AddItemInHandsProfileIK("geb_Garlic", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/tomato_fresh.anm");
 		pType.AddItemInHandsProfileIK("geb_YellowSquash", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
-		pType.AddItemInHandsProfileIK("geb_WatermelonSlice", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/pumpkin_sliced.anm");
-		pType.AddItemInHandsProfileIK("geb_Cantaloupe", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/pumpkin_sliced.anm");
-		pType.AddItemInHandsProfileIK("geb_CantaloupeSlice", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/pumpkin_sliced.anm");
-		pType.AddItemInHandsProfileIK("geb_Carrot", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
-		pType.AddItemInHandsProfileIK("geb_Cucumber", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
-		pType.AddItemInHandsProfileIK("geb_Barley", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
-		pType.AddItemInHandsProfileIK("geb_TobaccoLeaves", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
-		pType.AddItemInHandsProfileIK("geb_Cabbage", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/pumpkin_sliced.anm");
+		pType.AddItemInHandsProfileIK("geb_WatermelonSlice", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/berries.anm");
+		pType.AddItemInHandsProfileIK("geb_Cantaloupe", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/pepper_green_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_CantaloupeSlice", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_Carrot", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_Cucumber", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_Barley", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_TobaccoLeaves", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_TobaccoHand", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_Cabbage", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/pepper_green_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_Collards", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
 		pType.AddItemInHandsProfileIK("geb_SweetPotato", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
-		pType.AddItemInHandsProfileIK("geb_Sorghum", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_SweetPotatoPeeled", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_Beets", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/potato_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_Radishes", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/berries.anm");
+		pType.AddItemInHandsProfileIK("geb_Turnip", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/potato_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_PeaPods", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_PoleBeans", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_Peanuts", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/berries.anm");
+		pType.AddItemInHandsProfileIK("geb_Strawberries", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/berries.anm");
+		pType.AddItemInHandsProfileIK("geb_HopCones", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/berries.anm");
+		pType.AddItemInHandsProfileIK("geb_Sorghum", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
 		pType.AddItemInHandsProfileIK("geb_SunflowerHead", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/pumpkin_sliced.anm");
-		pType.AddItemInHandsProfileIK("geb_Leek", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_Leek", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_Ginseng", "dz/anims/workspaces/player/player_main/props/player_main_1h_fruit.asi", pBehavior, "dz/anims/anm/player/ik/gear/banana.anm");
+		pType.AddItemInHandsProfileIK("geb_PoppyPod", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/mushroom_amanita.anm");
+		pType.AddItemInHandsProfileIK("geb_CocaLeaves", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/berries.anm");
+		pType.AddItemInHandsProfileIK("geb_CannabisBud", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/berries.anm");
+		pType.AddItemInHandsProfileIK("geb_Joint", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/pen.anm");
+		pType.AddItemInHandsProfileIK("geb_JointLit", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/pen.anm");
+		pType.AddItemInHandsProfileIK("geb_CornSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_OkraSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_GreenBeanSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_OnionSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_GarlicClovesPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_YellowSquashSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_WatermelonSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_CantaloupeSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_CarrotSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_CucumberSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_BarleySeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_TobaccoSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_CabbageSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_CollardSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_SweetPotatoSeedPiecesPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_BeetSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_RadishSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_TurnipSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_PeaSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_PoleBeanSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_PeanutSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_StrawberrySeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_HopRhizomesPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_SorghumSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_SunflowerSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_LeekSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_GinsengSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_PoppySeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_CocaSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
+		pType.AddItemInHandsProfileIK("geb_CannabisSeedsPack", "dz/anims/workspaces/player/player_main/player_main_1h.asi", pBehavior, "dz/anims/anm/player/ik/gear/zucchini_seeds_pack.anm");
 	}
 	override void RegisterTwoHanded(DayZPlayerType pType, DayzPlayerItemBehaviorCfg pBehavior)
 	{
 		super.RegisterTwoHanded(pType, pBehavior);
 		pType.AddItemInHandsProfileIK("geb_Watermelon", "dz/anims/workspaces/player/player_main/player_main_2h.asi", pBehavior, "dz/anims/anm/player/ik/two_handed/pumpkin_fresh.anm");
+		pType.AddItemInHandsProfileIK("geb_TobaccoBale", "dz/anims/workspaces/player/player_main/weapons/player_main_2h_extinguisher.asi", pBehavior, "dz/anims/anm/player/ik/two_handed/firewood.anm");
 	}
 };
